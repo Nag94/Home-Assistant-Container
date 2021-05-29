@@ -1,0 +1,49 @@
+# Generic ignores
+*.log
+*.log.*
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+*.jpg
+*.mp3
+*.csv
+
+# Directory (contents) ignores
+config/.cloud
+config/.storage
+config/deps
+config/.ssh
+config/image
+config/netdaemon
+config/neighbours
+config/node-red
+
+# Specific file ignores
+config/.uuid
+config/core
+config/ip_bans.yaml
+config/known_devices.yaml
+config/options.xml
+config/secrets.yaml
+config/zigbee.db
+config/.google.token
+config/google_calendars.yaml
+config/www/remco.jpg
+config/www/anne.jpg
+config/esphome/.gitignore
+config/zigbee2mqtt
+
+# Ignore files created by IDE's
+.vscode
+.theia
+.Trash*
+
+# Specific keeps
+!.gitkeep
+
+# ESPHome ignores
+config/esphome/secrets.yaml
+config/esphome/.*/

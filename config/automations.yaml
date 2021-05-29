@@ -1,0 +1,226 @@
+- id: '1621870140126'
+  alias: Slaapkamer - Rolgordijn
+  description: ''
+  use_blueprint:
+    path: r3mcos3/ikea_open_close_remote.yaml
+    input:
+      remote: 62ae3da6fa634114d856602beee52cab
+      cover: cover.rolgordijn
+- id: '1621870559286'
+  alias: Overloop - Licht Schakelaar
+  description: ''
+  use_blueprint:
+    path: zha-ikea-tradfri-on-off.yaml
+    input:
+      remote: 30e64186ad8605defd300d8a8295a905
+      button_on_short:
+      - type: toggle
+        device_id: 913b43c0baf6b55f6ed0038cefb2784b
+        entity_id: light.slaapkamer_elyza
+        domain: light
+      button_off_short:
+      - type: toggle
+        device_id: a62de39a3686fbaf1770376bbdc81889
+        entity_id: light.slaapkamer
+        domain: light
+      button_on_long:
+      - service: light.toggle
+        target:
+          device_id: 5ef0c84be1879822e4d1f39924f41cd7
+        data:
+          brightness_pct: 50
+          effect: Colortwinkles
+      button_off_long:
+      - type: toggle
+        device_id: 03cb01bfd0973815f9c4d1de0e3fb013
+        entity_id: light.zolder_1
+        domain: light
+      - type: toggle
+        device_id: e383f7708e969ab7010e5c6e1407f368
+        entity_id: light.zolder_2
+        domain: light
+- id: '1621870719676'
+  alias: Woonkamer - Schakelaar
+  description: ''
+  use_blueprint:
+    path: zha-ikea-tradfri-on-off.yaml
+    input:
+      remote: 332b7015c8439d2d066930430a64e0bf
+      button_off_short:
+      - type: toggle
+        device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
+        entity_id: switch.kast
+        domain: switch
+      button_on_short:
+      - type: toggle
+        device_id: 9e7405337405aab074bfc3bba901d246
+        entity_id: light.woonkamer_spot_1
+        domain: light
+      - type: toggle
+        device_id: b9dc5a08ca6b275d1daeeaf61ac6bcb7
+        entity_id: light.woonkamer_spot_2
+        domain: light
+- id: '1621887666668'
+  alias: Kelder Licht
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      light_target:
+        device_id: 67e20f644a80cfac603da9094bf3831f
+      motion_entity: binary_sensor.kelder_beweging
+- id: '1622010105337'
+  alias: Slaapkamer Santi - Ledstrip
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
+    type: button_long_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_HOLD
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      device_id: 6eeca783b2d9cfbbe21886b0993260eb
+    data:
+      brightness_pct: 50
+      effect: Colortwinkles
+  mode: single
+- id: '1622055146715'
+  alias: WC Licht
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 2ba4fbbc8c964fd14195ddab8113bb32
+    entity_id: binary_sensor.wc_beweging
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 53087e3390780a0440609dd187364e13
+    entity_id: switch.wc_licht
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 53087e3390780a0440609dd187364e13
+    entity_id: switch.wc_licht
+    domain: switch
+  mode: restart
+- id: '1622220458366'
+  alias: Heating Control
+  description: ''
+  use_blueprint:
+    path: r3mcos3/heating.yaml
+    input:
+      time_after: '7:30:00'
+      heating: climate.woonkamer
+      temp_sensor: sensor.beneden_temperatuur
+      person1: person.dev
+      person2: person.annemarie
+      min_temp: 17
+- id: '1622221737764'
+  alias: Volume Control
+  description: ''
+  use_blueprint:
+    path: r3mcos3/volume_control.yaml
+    input:
+      media:
+        device_id:
+        - fd25f3b4bdb670d909c81cda743a8a1d
+        - d64b69ecb57f7ae66498fb29641b6ebb
+        - 80b17e38171741676fb6ed112a0210dc
+        - e2243ddf2291037173a4f27bcbebcbed
+        - a65c880d276523becfe34f1f44b8b000
+      time_up: 08:30:00
+      time_down: '20:30:00'
+- id: '1622222193390'
+  alias: Prullenbak Licht
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 2aa58223e24f00a069719475cf313206
+    entity_id: binary_sensor.deur_keuken
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    target:
+      device_id:
+      - 479581706ea86b1faa03d7138e8028e5
+      - 7d0df13cc80f1c74738814922d77eac8
+    data:
+      brightness_pct: 100
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    target:
+      device_id:
+      - 479581706ea86b1faa03d7138e8028e5
+      - 7d0df13cc80f1c74738814922d77eac8
+  mode: single
+- id: '1622223089526'
+  alias: Tuin & Schuur Licht
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: a2e725aed04f97b7eb8f3eadacd09782
+    type: button_long_press
+    subtype: button_1
+    discovery_id: D8F15BE77D0A_button_1_HOLD
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      device_id:
+      - 479581706ea86b1faa03d7138e8028e5
+      - 7d0df13cc80f1c74738814922d77eac8
+      - 420ff689b87bbabaa17baaa3e56b9b04
+      - aad84c18920c3aaf4775f06e4b5146db
+      - 07071d67ce0dccb8884c0c173e939810
+      - b5770fb761495ffb0ff18690e0579bee
+      - 14b482aa41c97e4b02fc13e34d5f8071
+      - d5c2b42c62713cd27af641a3ceb89ee8
+      - 23583d2f0f8e915f22b08fc3e35d82af
+      - 1828b8068153a7ad91dc90a8de0a157e
+      - e9e779bf25fcbb0a673b6bf850237740
+      - c11a2aad903f937a8b9451a0f42ef1c1
+      - 681c2133fc1dcec1c7bc8ab0b823a9df
+    data:
+      brightness_pct: 100
+  - service: switch.toggle
+    target:
+      device_id: aba409a304f339f107368a007be8247e
+  mode: single
+- id: '1622279238906'
+  alias: Ochtend Licht
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.next_alarm
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
+    entity_id: switch.kast
+    domain: switch
+  - type: turn_on
+    device_id: a2e725aed04f97b7eb8f3eadacd09782
+    entity_id: switch.keuken_schakelaar
+    domain: switch
+  mode: single
