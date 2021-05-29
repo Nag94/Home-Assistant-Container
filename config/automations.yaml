@@ -224,3 +224,104 @@
     entity_id: switch.keuken_schakelaar
     domain: switch
   mode: single
+- id: '1622290679194'
+  alias: Licht Thuis Komen
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: a99395cd08297594b83d627677615ea8
+    entity_id: binary_sensor.voor_deur
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - type: turn_on
+    device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
+    entity_id: switch.kast
+    domain: switch
+  - service: light.turn_on
+    target:
+      entity_id: light.woonkamer_spotjes
+  - type: turn_on
+    device_id: a2e725aed04f97b7eb8f3eadacd09782
+    entity_id: switch.keuken_schakelaar
+    domain: switch
+  - type: turn_on
+    device_id: 29a9fe976e5254cb5de97f554084f423
+    entity_id: light.gang
+    domain: light
+    brightness_pct: 100
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 29a9fe976e5254cb5de97f554084f423
+    entity_id: light.gang
+    domain: light
+  mode: single
+- id: '1622291702366'
+  alias: Rolluik Bediening Boven
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
+    type: button_double_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_DOUBLE
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 6e9ba0e145793df25490992ba89ce0e7
+        domain: cover
+        entity_id: cover.rolluik_boven
+        type: is_open
+      sequence:
+      - service: cover.close_cover
+        target:
+          device_id: 6e9ba0e145793df25490992ba89ce0e7
+    - conditions:
+      - condition: device
+        device_id: 6e9ba0e145793df25490992ba89ce0e7
+        domain: cover
+        entity_id: cover.rolluik_boven
+        type: is_closed
+      sequence:
+      - service: cover.open_cover
+        target:
+          device_id: 6e9ba0e145793df25490992ba89ce0e7
+    default: []
+  mode: single
+- id: '1622293845219'
+  alias: WC Licht Guard
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 53087e3390780a0440609dd187364e13
+    entity_id: switch.wc_licht
+    domain: switch
+  condition:
+  - type: is_no_motion
+    condition: device
+    device_id: 2ba4fbbc8c964fd14195ddab8113bb32
+    entity_id: binary_sensor.wc_beweging
+    domain: binary_sensor
+  action:
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 53087e3390780a0440609dd187364e13
+    entity_id: switch.wc_licht
+    domain: switch
+  mode: single
