@@ -1,4 +1,4 @@
-
+---
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
@@ -9,7 +9,6 @@ tts:
     time_memory: 300
     cache: true
     cache_dir: /tmp/tts
-
 
 group: !include groups.yaml
 automation: !include automations.yaml
