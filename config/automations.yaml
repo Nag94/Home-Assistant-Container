@@ -325,3 +325,61 @@
     entity_id: switch.wc_licht
     domain: switch
   mode: single
+- id: '1622368464981'
+  alias: Niemand Thuis Lichten Uit
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.annemarie
+    zone: zone.home
+    event: leave
+  - platform: zone
+    entity_id: person.dev
+    zone: zone.home
+    event: leave
+  condition: []
+  action:
+  - service: light.turn_off
+    entity_id: all
+  - service: switch.turn_off
+    target:
+      device_id:
+      - aba409a304f339f107368a007be8247e
+      - e8acf5c57a51493f7a98b8eb33e8e2c1
+      - a2e725aed04f97b7eb8f3eadacd09782
+      - 53087e3390780a0440609dd187364e13
+      - 8740fcd2b902c3c8fe7ab26e995ed5d9
+  - service: notify.mobile_app_in2023
+    data:
+      message: Niemand thuis, Alle lichten uitgezet
+  mode: single
+- id: '1622391163363'
+  alias: Update Beschikbaar
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.update_available
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_in2023
+    data:
+      title: 'HA Update Beschikbaar '
+      message: Nieuwe versie is {{ states('sensor.newest_dev_version') }}. momenteel
+        zit je op {{ states('sensor.installed_version') }}
+  mode: single
+- id: '1622395399835'
+  alias: Santi Nachtlampje
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 6eeca783b2d9cfbbe21886b0993260eb
+    entity_id: light.wled_santi
+    domain: light
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.wled_santi_nightlight
+  mode: single
