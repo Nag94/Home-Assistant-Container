@@ -1,0 +1,34 @@
+---
+light:
+  - platform: group
+    name: Woonkamer Spotjes
+    entities:
+      - light.woonkamer_spot_1
+      - light.woonkamer_spot_2
+  - platform: group
+    name: Tuin
+    entities:
+      - light.tuin_led_1
+      - light.tuin_led_2
+      - light.tuin_led_3
+      - light.tuin_led_4
+  - platform: group
+    name: Patio
+    entities:
+      - light.patio_led_1
+      - light.patio_led_2
+      - light.patio_led_3
+      - light.patio_led_4
+      - light.patio_led_5
+      - light.patio_led_6
+  - platform: group
+    name: Zolder
+    entities:
+      - light.zolder_1
+      - light.zolder_2
+  - platform: group
+    name: Schuur
+    entities:
+      - light.schuur_1
+      - light.schuur_2
+      - light.schuur_led

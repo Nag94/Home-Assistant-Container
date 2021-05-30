@@ -1,70 +1,20 @@
 ---
-# Configure a default setup of Home Assistant (frontend, api, etc)
-default_config:
+homeassistant:
+  packages: !include_dir_named integrations
 
-# Text to speech
-tts:
-  - platform: google_translate
-    language: 'nl'
-    time_memory: 300
-    cache: true
-    cache_dir: /tmp/tts
 
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
 
-recorder:
-  db_url: !secret rec_url
-  auto_purge: true
-  purge_keep_days: 7
 
-binary_sensor:
-  - platform: template
-    sensors:
-      next_alarm:
-        friendly_name: "Volgende Alarm"
-        value_template: >-
-          {{now().strftime("%a %h %d %H:%M %Z %Y") == (((state_attr('sensor.in2023_next_alarm', 'Time in Milliseconds')
-          | int / 1000) + 0*60 ) | timestamp_custom('%a %h %d %H:%M %Z %Y'))}}
 
-light:
-  - platform: group
-    name: Woonkamer Spotjes
-    entities:
-      - light.woonkamer_spot_1
-      - light.woonkamer_spot_2
-  - platform: group
-    name: Tuin
-    entities:
-      - light.tuin_led_1
-      - light.tuin_led_2
-      - light.tuin_led_3
-      - light.tuin_led_4
-  - platform: group
-    name: Patio
-    entities:
-      - light.patio_led_1
-      - light.patio_led_2
-      - light.patio_led_3
-      - light.patio_led_4
-      - light.patio_led_5
-      - light.patio_led_6
-  - platform: group
-    name: Zolder
-    entities:
-      - light.zolder_1
-      - light.zolder_2
-  - platform: group
-    name: Schuur
-    entities:
-      - light.schuur_1
-      - light.schuur_2
-      - light.schuur_led
 
-zha:
-  zigpy_config:
-    ota:
-      ikea_provider: 'true'
-      ikea_update_url: http://fw.test.ota.homesmart.ikea.net/feed/version_info.json
+
+
+
+
+
+
+
+
+
+
+

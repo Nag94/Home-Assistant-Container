@@ -1,0 +1,10 @@
+---
+sensor:
+  - platform: rest
+    resource: https://version.home-assistant.io/dev.json
+    name: Newest DEV Version
+    value_template: '{{ value_json.homeassistant.default }}'
+    scan_interval: 1800
+  - platform: command_line
+    name: Installed Version
+    command: "cat /config/.HA_VERSION"
