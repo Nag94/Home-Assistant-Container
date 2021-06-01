@@ -103,11 +103,17 @@
     device_id: 53087e3390780a0440609dd187364e13
     entity_id: switch.wc_licht
     domain: switch
-  - delay:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
+  - wait_for_trigger:
+    - type: no_motion
+      platform: device
+      device_id: 2ba4fbbc8c964fd14195ddab8113bb32
+      entity_id: binary_sensor.wc_beweging
+      domain: binary_sensor
+      for:
+        hours: 0
+        minutes: 3
+        seconds: 50
+        milliseconds: 0
   - type: turn_off
     device_id: 53087e3390780a0440609dd187364e13
     entity_id: switch.wc_licht
@@ -237,6 +243,8 @@
   - condition: state
     entity_id: sun.sun
     state: below_horizon
+  - condition: time
+    before: 03:00
   action:
   - type: turn_on
     device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
@@ -299,56 +307,20 @@
           device_id: 6e9ba0e145793df25490992ba89ce0e7
     default: []
   mode: single
-- id: '1622293845219'
-  alias: WC Licht Guard
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 53087e3390780a0440609dd187364e13
-    entity_id: switch.wc_licht
-    domain: switch
-  condition:
-  - type: is_no_motion
-    condition: device
-    device_id: 2ba4fbbc8c964fd14195ddab8113bb32
-    entity_id: binary_sensor.wc_beweging
-    domain: binary_sensor
-  action:
-  - delay:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - type: turn_off
-    device_id: 53087e3390780a0440609dd187364e13
-    entity_id: switch.wc_licht
-    domain: switch
-  mode: single
 - id: '1622368464981'
   alias: Niemand Thuis Lichten Uit
   description: ''
   trigger:
-  - platform: zone
-    entity_id: person.annemarie
-    zone: zone.home
-    event: leave
-  - platform: zone
-    entity_id: person.dev
-    zone: zone.home
-    event: leave
-  condition: []
+  - platform: state
+    entity_id: input_boolean.huis_status
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: light.alle_lichten
+    state: 'on'
   action:
   - service: light.turn_off
     entity_id: all
-  - service: switch.turn_off
-    target:
-      device_id:
-      - aba409a304f339f107368a007be8247e
-      - e8acf5c57a51493f7a98b8eb33e8e2c1
-      - a2e725aed04f97b7eb8f3eadacd09782
-      - 53087e3390780a0440609dd187364e13
-      - 8740fcd2b902c3c8fe7ab26e995ed5d9
   - service: notify.mobile_app_in2023
     data:
       message: Niemand thuis, Alle lichten uitgezet
@@ -382,4 +354,50 @@
   - service: switch.turn_on
     target:
       entity_id: switch.wled_santi_nightlight
+  mode: single
+- id: '1622440530480'
+  alias: Huis Status - Bewoond
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.annemarie
+    to: home
+  - platform: state
+    entity_id: person.dev
+    to: home
+  - platform: state
+    entity_id: input_boolean.gasten_status
+    to: 'on'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.huis_status
+  mode: single
+- id: '1622486649718'
+  alias: Huis Status - Onbewoond
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: person.dev
+    zone: zone.home
+    event: leave
+  - platform: zone
+    entity_id: person.annemarie
+    zone: zone.home
+    event: leave
+  condition:
+  - condition: state
+    entity_id: person.annemarie
+    state: not_home
+  - condition: state
+    entity_id: person.dev
+    state: not_home
+  - condition: state
+    entity_id: input_boolean.gasten_status
+    state: 'off'
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.huis_status
   mode: single
