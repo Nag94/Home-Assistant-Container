@@ -32,3 +32,36 @@ light:
       - light.schuur_1
       - light.schuur_2
       - light.schuur_led
+  - platform: group
+    name: Alle Lichten
+    entities:
+      - light.gang
+      - light.woonkamer_spot_1
+      - light.woonkamer_spot_2
+      - light.keuken
+      - light.tuin
+      - light.zolder
+      - light.schuur
+      - light.patio
+      - light.slaapkamer
+      - light.slaapkamer_elyza
+      - light.kast
+      - light.spotjes_santi
+      - light.wc_licht
+      - light.keuken_spotjes
+      - light.groot_licht
+  - platform: switch
+    name: Kast
+    entity_id: switch.kast
+  - platform: switch
+    name: WC Licht
+    entity_id: switch.wc_licht
+  - platform: switch
+    name: Keuken Spotjes
+    entity_id: switch.keuken_schakelaar
+  - platform: switch
+    name: Groot Licht
+    entity_id: switch.groot_licht
+  - platform: switch
+    name: Spotjes Santi
+    entity_id: switch.schakelaar_santi
