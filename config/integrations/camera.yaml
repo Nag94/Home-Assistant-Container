@@ -1,0 +1,5 @@
+---
+camera:
+  - platform: ffmpeg
+    name: Camera Overkapping
+    input: !secret reolink
