@@ -219,7 +219,10 @@
   - platform: state
     entity_id: binary_sensor.next_alarm
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
   action:
   - type: turn_on
     device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
