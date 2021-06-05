@@ -8,6 +8,7 @@ ignore: |
   config/scripts.yaml
   config/customize.yaml
   config/blueprints
+  config/dwains-dashboard
 rules:
   braces:
     level: error
