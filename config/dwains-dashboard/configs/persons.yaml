@@ -1,0 +1,28 @@
+# https://dwainscheeren.github.io/dwains-lovelace-dashboard/configuration/persons.html
+
+persons:
+  - name: Remco
+    track: person.dev
+    show_map: true
+    more_entities:
+      columns: 1 #optional
+      entities:
+        - entity: sensor.in2023_battery_level
+        - entity: device_tracker.in2023
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.in2023_next_alarm
+        - entity: sensor.in2023_geocoded_location
+  - name: Annemarie
+    track: person.annemarie
+    show_map: true
+    more_entities:
+      columns: 1 #optional
+      entities:
+        - entity: sensor.iphone_van_marietje_battery_level
+        - entity: device_tracker.iphone_van_marietje
+    page_entities:
+      columns: 2 #optional
+      entities:
+        - entity: sensor.iphone_van_marietje_geocoded_location

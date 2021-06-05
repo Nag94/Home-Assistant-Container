@@ -1,0 +1,60 @@
+# https://dwainscheeren.github.io/dwains-lovelace-dashboard/configuration/rooms.html
+
+rooms:
+  - name: Woonkamer
+    icon: mdi:sofa-outline
+    light: light.woonkamer_spotjes
+    temperature: sensor.beneden_temperatuur
+    climate: climate.woonkamer
+    humidity: sensor.woonkamer_humidity
+    # motion: binary_sensor.hallway_sensor_motion
+    # door: binary_sensor.hallway_door_contact
+    # window: binary_sensor.hallway_window_contact
+    # safety: sensor.smoke_sensor
+    # device: switch.television
+    # vacuum:
+    #   entity: vacuum.rockrobo
+    #   camera: camera.rockrobo_map
+    # plant: plant.hallway_plant
+    media_player: media_player.mini_woonkamer
+    page_entities:
+      entities:
+        - entity: switch.kast
+        - entity: cover.rolluik_voor
+        - entity: cover.rolluik_achter
+  - name: Keuken
+    icon: mdi:fridge-outline
+    light: light.keuken_spotjes
+    door: binary_sensor.deur_keuken
+    media_player: media_player.mini_keuken
+    page_entities:
+      entities:
+        - entity: light.keuken
+  - name: Slaapkamer Santi
+    icon: mdi:bed
+    light: light.spotjes_santi
+    cover: cover.rolluik_boven
+    window: binary_sensor.raam_slaapkamer_santi
+    temperature: sensor.slaapkamer_santi_temperatuur
+    humidity: sensor.slaapkamer_santi_luchtvochtigheid
+    page_entities:
+      entities:
+        - entity: light.wled_santi
+  - name: Slaapkamer Elyza
+    icon: mdi:bed
+    light: light.slaapkamer_elyza
+    window: binary_sensor.raam_elyza
+    page_entities:
+      entities:
+        - entity: light.wled_elyza
+  - name: Slaapkamer
+    icon: mdi:bed
+    light: light.slaapkamer
+    temperature: sensor.slaapkamer_temperatuur
+    humidity: sensor.slaapkamer_luchtvochtigheid
+    window: binary_sensor.raam_slaapkamer
+    cover: cover.rolgordijn
+    media_player: media_player.slaapkamer_tv
+    page_entities:
+      entities:
+        - entity: media_player.google_hub
