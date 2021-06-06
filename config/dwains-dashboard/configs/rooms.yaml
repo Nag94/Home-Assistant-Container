@@ -6,6 +6,7 @@ rooms:
     light: light.woonkamer_spotjes
     temperature: sensor.beneden_temperatuur
     climate: climate.woonkamer
+    cover: cover.rolluik_voor
     humidity: sensor.woonkamer_humidity
     # motion: binary_sensor.hallway_sensor_motion
     # door: binary_sensor.hallway_door_contact
@@ -20,11 +21,10 @@ rooms:
     page_entities:
       entities:
         - entity: switch.kast
-        - entity: cover.rolluik_voor
-        - entity: cover.rolluik_achter
   - name: Keuken
     icon: mdi:fridge-outline
     light: light.keuken_spotjes
+    cover: cover.rolluik_achter
     door: binary_sensor.deur_keuken
     media_player: media_player.mini_keuken
     page_entities:
@@ -58,3 +58,41 @@ rooms:
     page_entities:
       entities:
         - entity: media_player.google_hub
+  - name: Tuin
+    icon: mdi:tree-outline
+    light: light.tuin
+    temperature: sensor.buiten_temperatuur
+    humidity: sensor.buiten_luchtvochtigheid
+    page_entities:
+      entities:
+        - entity: camera.camera_overkapping
+        - entity: light.tuin_led
+        - entity: light.patio
+        - entity: light.groot_licht
+        - entity: light.schuur
+  - name: Patio
+    icon: mdi:palm-tree
+    light: light.patio
+    media_player: media_player.tv
+    page_entities:
+      entities:
+        - entity: light.patio_led_1
+        - entity: light.patio_led_2
+        - entity: light.patio_led_3
+        - entity: light.patio_led_4
+        - entity: light.patio_led_5
+        - entity: light.patio_led_6
+  - name: Overige
+    icon: mdi:information-outline
+    light: light.wc_licht
+    page_entities:
+      entities:
+        - entity: light.gang
+        - entity: light.kelder
+        - entity: switch.lsc_outlet
+        - entity: binary_sensor.wc_beweging
+        - entity: binary_sensor.kelder_beweging
+        - entity: sensor.licht_sensor_sterkte
+        - entity: sensor.installed_version
+        - entity: sensor.newest_dev_version
+        - entity: binary_sensor.update_available
