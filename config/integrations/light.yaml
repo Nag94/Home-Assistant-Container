@@ -1,12 +1,19 @@
 ---
 light:
   - platform: group
+    name: Tuin
+    entities:
+      - light.patio
+      - light.tuin_led
+      - light.schuur
+      - light.groot_licht
+  - platform: group
     name: Woonkamer Spotjes
     entities:
       - light.woonkamer_spot_1
       - light.woonkamer_spot_2
   - platform: group
-    name: Tuin
+    name: Tuin Led
     entities:
       - light.tuin_led_1
       - light.tuin_led_2
