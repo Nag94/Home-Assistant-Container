@@ -1,0 +1,18 @@
+binary_sensor.raam_badkamer:
+  device_class: window
+binary_sensor.raam_elyza:
+  device_class: window
+binary_sensor.raam_slaapkamer:
+  device_class: window
+binary_sensor.raam_slaapkamer_santi:
+  device_class: window
+cover.rolluik_achter:
+  device_class: shutter
+cover.rolluik_boven:
+  device_class: shutter
+cover.rolluik_voor:
+  device_class: shutter
+binary_sensor.deur_keuken:
+  device_class: door
+binary_sensor.voor_deur:
+  device_class: door
