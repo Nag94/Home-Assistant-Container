@@ -60,6 +60,10 @@
         device_id: b9dc5a08ca6b275d1daeeaf61ac6bcb7
         entity_id: light.woonkamer_spot_2
         domain: light
+      button_off_long:
+      - service: cover.toggle
+        target:
+          device_id: 9e495e0b463a8a665dcb917e62658217
 - id: '1621887666668'
   alias: Kelder Licht
   description: ''
@@ -403,4 +407,21 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.huis_status
+  mode: single
+- id: '1623576497519'
+  alias: Pollen Alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.pollen_grass_risk
+    to: high
+  condition:
+  - condition: time
+    after: '4:59'
+    before: '5:01'
+  action:
+  - service: notify.mobile_app_in2023
+    data:
+      title: Pollen Alarm!!!
+      message: Veel gras pollen in de lucht neem je medicijnen
   mode: single

@@ -16,3 +16,6 @@ binary_sensor.deur_keuken:
   device_class: door
 binary_sensor.voor_deur:
   device_class: door
+sensor.unraid_cpu_temp:
+  unit_of_measurement: °C
+  device_class: temperature
