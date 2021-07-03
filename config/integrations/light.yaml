@@ -10,8 +10,8 @@ light:
   - platform: group
     name: Woonkamer Spotjes
     entities:
-      - light.woonkamer_spot_1
-      - light.woonkamer_spot_2
+      - light.woonkamer_spotjes_1
+      - light.woonkamer_spotjes_2
   - platform: group
     name: Tuin Led
     entities:
@@ -72,3 +72,9 @@ light:
   - platform: switch
     name: Spotjes Santi
     entity_id: switch.schakelaar_santi
+  - platform: switch
+    name: Woonkamer Spotjes 1
+    entity_id: switch.woonkamer_spotjes_1
+  - platform: switch
+    name: Woonkamer Spotjes 2
+    entity_id: switch.woonkamer_spotjes_2
