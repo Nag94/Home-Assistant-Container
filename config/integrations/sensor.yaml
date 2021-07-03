@@ -8,3 +8,13 @@ sensor:
   - platform: command_line
     name: Installed Version
     command: "cat /config/.HA_VERSION"
+  - platform: command_line
+    name: Unraid CPU Temp
+    value_template: "{{ value | multiply(0.001) | round(1) }}"
+    command: "cat /sys/devices/virtual/thermal/thermal_zone0/temp"
+  - platform: p2000
+    name: Tilburg
+    radius: '10000'
+    regios: '20'
+  - platform: uptime
+    name: Time Online
