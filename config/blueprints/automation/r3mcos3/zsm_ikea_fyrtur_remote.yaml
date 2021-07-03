@@ -1,0 +1,43 @@
+---
+blueprint:
+  name: Z2M IKEA Open/Close Remote
+  description: |
+    'Control your roller blind with an IKEA 2 button remote (the square ones).
+    this is the remote that's been delivered by the "Fytur" and " Kadrilj"
+    roller blinds.'
+  domain: automation
+  input:
+    remote:
+      name: Remote
+      description: IKEA remote to use
+      selector:
+        entity:
+          domain: sensor
+    cover:
+      name: Roller Blind
+      description: Roller blind to control
+      selector:
+        target:
+          entity:
+            domain: cover
+mode: single
+max_exceeded: silent
+trigger:
+  - platform: state
+    entity_id: !input remote
+action:
+  - variables:
+      command: "{{ trigger.to_state.state }}"
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ command == 'open' }}"
+        sequence:
+          - service: cover.open_cover
+            target: !input cover
+      - conditions:
+          - condition: template
+            value_template: "{{ command == 'close' }}"
+        sequence:
+          - service: cover.close_cover
+            target: !input cover
