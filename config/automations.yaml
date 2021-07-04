@@ -424,8 +424,8 @@
   trigger:
   - type: motion
     platform: device
-    device_id: 25cc65cd7f93e61ca76d79f245258c33
-    entity_id: binary_sensor.schuur_motion
+    device_id: c2e45b8bfe53c801d132a3e7dc3290de
+    entity_id: binary_sensor.schuur_motion_occupancy
     domain: binary_sensor
   condition:
   - condition: state
@@ -438,8 +438,8 @@
   - wait_for_trigger:
     - type: no_motion
       platform: device
-      device_id: 25cc65cd7f93e61ca76d79f245258c33
-      entity_id: binary_sensor.schuur_motion
+      device_id: c2e45b8bfe53c801d132a3e7dc3290de
+      entity_id: binary_sensor.schuur_motion_occupancy
       domain: binary_sensor
   - service: light.turn_off
     target:
