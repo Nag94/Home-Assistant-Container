@@ -147,8 +147,8 @@
   trigger:
   - type: opened
     platform: device
-    device_id: 2aa58223e24f00a069719475cf313206
-    entity_id: binary_sensor.deur_keuken
+    device_id: 34b72573a8e8cc83a8bc423dfd47d071
+    entity_id: binary_sensor.keuken_deur_contact
     domain: binary_sensor
   condition:
   - condition: state
@@ -156,12 +156,12 @@
     state: below_horizon
   action:
   - service: light.turn_on
-    target:
-      device_id:
-      - 479581706ea86b1faa03d7138e8028e5
-      - 7d0df13cc80f1c74738814922d77eac8
     data:
       brightness_pct: 100
+    target:
+      device_id:
+      - 433fb2fd90da24c1dcb5d5be61288d92
+      - 3a910e816c307b41d56fa992ed6c7b20
   - delay:
       hours: 0
       minutes: 2
@@ -170,8 +170,8 @@
   - service: light.turn_off
     target:
       device_id:
-      - 479581706ea86b1faa03d7138e8028e5
-      - 7d0df13cc80f1c74738814922d77eac8
+      - 433fb2fd90da24c1dcb5d5be61288d92
+      - 3a910e816c307b41d56fa992ed6c7b20
   mode: single
 - id: '1622223089526'
   alias: Tuin & Schuur Licht
