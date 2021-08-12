@@ -21,6 +21,7 @@ light:
       - light.tuin_led_4
   - platform: group
     name: Patio
+    unique_id: 1111
     entities:
       - light.patio_led_1
       - light.patio_led_2
