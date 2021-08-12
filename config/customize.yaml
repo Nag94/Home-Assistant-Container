@@ -19,3 +19,7 @@ binary_sensor.voor_deur:
 sensor.unraid_cpu_temp:
   unit_of_measurement: °C
   device_class: temperature
+sensor.power_consumption:
+  state_class: measurement
+sensor.house_usage:
+  last_reset: '"1970-01-01T00:00:00+00:00"'

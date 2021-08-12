@@ -106,7 +106,7 @@
       domain: binary_sensor
       for:
         hours: 0
-        minutes: 3
+        minutes: 5
         seconds: 0
         milliseconds: 0
   - type: turn_off
@@ -186,26 +186,12 @@
   condition: []
   action:
   - service: light.toggle
-    target:
-      device_id:
-      - 479581706ea86b1faa03d7138e8028e5
-      - 7d0df13cc80f1c74738814922d77eac8
-      - 420ff689b87bbabaa17baaa3e56b9b04
-      - aad84c18920c3aaf4775f06e4b5146db
-      - 07071d67ce0dccb8884c0c173e939810
-      - b5770fb761495ffb0ff18690e0579bee
-      - 14b482aa41c97e4b02fc13e34d5f8071
-      - d5c2b42c62713cd27af641a3ceb89ee8
-      - 23583d2f0f8e915f22b08fc3e35d82af
-      - 1828b8068153a7ad91dc90a8de0a157e
-      - e9e779bf25fcbb0a673b6bf850237740
-      - c11a2aad903f937a8b9451a0f42ef1c1
-      - 681c2133fc1dcec1c7bc8ab0b823a9df
     data:
       brightness_pct: 100
-  - service: switch.toggle
     target:
-      device_id: aba409a304f339f107368a007be8247e
+      entity_id:
+      - light.tuin_led
+      - light.groot_licht_2
   mode: single
 - id: '1622279238906'
   alias: Ochtend Licht
@@ -234,19 +220,17 @@
   trigger:
   - type: opened
     platform: device
-    device_id: a99395cd08297594b83d627677615ea8
-    entity_id: binary_sensor.voor_deur
+    device_id: 0d7084423166482c49435d9b5e3e88f9
+    entity_id: binary_sensor.voor_deur_contact
     domain: binary_sensor
   condition:
   - condition: state
     entity_id: sun.sun
     state: below_horizon
-  - condition: time
-    before: 03:00
   action:
   - type: turn_on
-    device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
-    entity_id: switch.kast
+    device_id: 006f006715e635f79f29257a68b54bf9
+    entity_id: switch.kast_licht
     domain: switch
   - service: light.turn_on
     target:
@@ -256,18 +240,17 @@
     entity_id: switch.keuken_schakelaar
     domain: switch
   - type: turn_on
-    device_id: 29a9fe976e5254cb5de97f554084f423
-    entity_id: light.gang
+    device_id: 8b3050929b1c936bd357237e597c5b20
+    entity_id: light.gang_licht
     domain: light
-    brightness_pct: 100
   - delay:
       hours: 0
       minutes: 5
       seconds: 0
       milliseconds: 0
   - type: turn_off
-    device_id: 29a9fe976e5254cb5de97f554084f423
-    entity_id: light.gang
+    device_id: 8b3050929b1c936bd357237e597c5b20
+    entity_id: light.gang_licht
     domain: light
   mode: single
 - id: '1622291702366'
@@ -562,3 +545,17 @@
     entity_id: light.kelder_licht
     domain: light
   mode: restart
+- id: '1628421634940'
+  alias: Zonnig? sluit rolluik boven
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.licht_sensor_illuminance_lux
+    above: '60000'
+  condition: []
+  action:
+  - device_id: 6e9ba0e145793df25490992ba89ce0e7
+    domain: cover
+    entity_id: cover.rolluik_boven
+    type: set_position
+  mode: single
