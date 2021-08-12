@@ -10,5 +10,3 @@ binary_sensor:
       update_available:
         friendly_name: "Update Available"
         value_template: "{{ (states('sensor.newest_dev_version') > states('sensor.installed_version')) }}"
-  - platform: uptimerobot
-    api_key: !secret uptimerobot
