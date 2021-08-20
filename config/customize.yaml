@@ -22,4 +22,6 @@ sensor.unraid_cpu_temp:
 sensor.power_consumption:
   state_class: measurement
 sensor.house_usage:
-  last_reset: '"1970-01-01T00:00:00+00:00"'
+  unit_of_measurement: W
+sensor.wasmachine_energy_total: {}
+sensor.vaatwasser_energy: {}

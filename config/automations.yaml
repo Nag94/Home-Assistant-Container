@@ -172,7 +172,7 @@
       device_id:
       - 433fb2fd90da24c1dcb5d5be61288d92
       - 3a910e816c307b41d56fa992ed6c7b20
-  mode: single
+  mode: restart
 - id: '1622223089526'
   alias: Tuin & Schuur Licht
   description: ''
@@ -551,7 +551,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.licht_sensor_illuminance_lux
-    above: '60000'
+    above: '6000'
   condition: []
   action:
   - device_id: 6e9ba0e145793df25490992ba89ce0e7
