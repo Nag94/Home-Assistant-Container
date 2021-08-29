@@ -65,7 +65,7 @@
         target:
           device_id: 9e495e0b463a8a665dcb917e62658217
 - id: '1622010105337'
-  alias: Slaapkamer Santi - Ledstrip
+  alias: Slaapkamer Santi - Ledstrip + Rolluik
   description: ''
   trigger:
   - platform: device
@@ -76,12 +76,64 @@
     discovery_id: 2CF432C02815_button_1_HOLD
   condition: []
   action:
-  - service: light.toggle
-    target:
-      device_id: 6eeca783b2d9cfbbe21886b0993260eb
-    data:
-      brightness_pct: 50
-      effect: Colortwinkles
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: light.wled_santi
+        domain: light
+      sequence:
+      - service: light.turn_on
+        target:
+          device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        data:
+          brightness_pct: 50
+          effect: Colortwinkles
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: light.wled_santi
+        domain: light
+      - condition: device
+        type: is_off
+        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+        entity_id: switch.ventilator_santi
+        domain: switch
+      sequence:
+      - type: turn_on
+        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+        entity_id: switch.ventilator_santi
+        domain: switch
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: light.wled_santi
+        domain: light
+      - condition: device
+        type: is_on
+        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+        entity_id: switch.ventilator_santi
+        domain: switch
+      sequence:
+      - type: turn_off
+        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+        entity_id: switch.ventilator_santi
+        domain: switch
+    - conditions:
+      - condition: device
+        device_id: 6e9ba0e145793df25490992ba89ce0e7
+        domain: cover
+        entity_id: cover.rolluik_boven
+        type: is_open
+      sequence:
+      - type: turn_off
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: light.wled_santi
+        domain: light
+    default: []
   mode: single
 - id: '1622055146715'
   alias: WC Licht
@@ -227,6 +279,9 @@
   - condition: state
     entity_id: sun.sun
     state: below_horizon
+  - condition: state
+    state: 'off'
+    entity_id: switch.kast_licht
   action:
   - type: turn_on
     device_id: 006f006715e635f79f29257a68b54bf9
@@ -322,7 +377,7 @@
         zit je op {{ states('sensor.installed_version') }}
   mode: single
 - id: '1622395399835'
-  alias: Santi Nachtlampje
+  alias: Santi Nachtlampje + ventilatie 30min
   description: ''
   trigger:
   - platform: device
@@ -330,12 +385,39 @@
     device_id: 6eeca783b2d9cfbbe21886b0993260eb
     entity_id: light.wled_santi
     domain: light
+    id: nightlight_on
+  - platform: device
+    type: turned_on
+    device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+    entity_id: switch.ventilator_santi
+    domain: switch
+    id: vent_on
   condition: []
   action:
-  - service: switch.turn_on
-    target:
-      entity_id: switch.wled_santi_nightlight
-  mode: single
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: nightlight_on
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.wled_santi_nightlight
+    - conditions:
+      - condition: trigger
+        id: vent_on
+      sequence:
+      - delay:
+          hours: 0
+          minutes: 30
+          seconds: 0
+          milliseconds: 0
+      - type: turn_off
+        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
+        entity_id: switch.ventilator_santi
+        domain: switch
+    default: []
+  mode: parallel
+  max: 10
 - id: '1622440530480'
   alias: Huis Status - Bewoond
   description: ''
@@ -381,25 +463,6 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.huis_status
-  mode: single
-- id: '1623576497519'
-  alias: Pollen Alarm
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.next_alarm
-    to: 'on'
-  - platform: time
-    at: '4:00'
-  condition:
-  - condition: state
-    entity_id: sensor.pollen_grass_risk
-    state: high
-  action:
-  - service: notify.mobile_app_in2023
-    data:
-      title: Pollen Alarm!!!
-      message: Veel gras pollen in de lucht neem je medicijnen
   mode: single
 - id: '1624737573905'
   alias: Schuur Licht
@@ -558,4 +621,21 @@
     domain: cover
     entity_id: cover.rolluik_boven
     type: set_position
+  mode: single
+- id: '1629538423418'
+  alias: 'Keuken Licht '
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: a2e725aed04f97b7eb8f3eadacd09782
+    type: button_double_press
+    subtype: button_1
+    discovery_id: D8F15BE77D0A_button_1_DOUBLE
+  condition: []
+  action:
+  - type: toggle
+    device_id: 02a33f7c6948a7a98e138593455d2ec1
+    entity_id: light.keuken_licht
+    domain: light
   mode: single

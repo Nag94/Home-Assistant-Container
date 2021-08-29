@@ -21,7 +21,23 @@ sensor.unraid_cpu_temp:
   device_class: temperature
 sensor.power_consumption:
   state_class: measurement
-sensor.house_usage:
-  unit_of_measurement: W
+sensor.house_usage: {}
 sensor.wasmachine_energy_total: {}
-sensor.vaatwasser_energy: {}
+sensor.vaatwasser_energy:
+  state_class: total_increasing
+sensor.koelkast_keuken_energy:
+  state_class: total_increasing
+sensor.energy_consumption_tarif_1:
+  last_reset: '1970-01-01T00:00:00.000Z'
+  state_class: total_increasing
+sensor.energy_consumption_tarif_2:
+  last_reset: '1970-01-01T00:00:00.000Z'
+  state_class: total_increasing
+sensor.uurlijks_verbruik_dal:
+  state_class: total_increasing
+sensor.uurlijks_verbruik_normaal:
+  state_class: total_increasing
+sensor.dagelijks_verbruik_dal:
+  state_class: total_increasing
+sensor.dagelijks_verbruik_normaal:
+  state_class: total_increasing
