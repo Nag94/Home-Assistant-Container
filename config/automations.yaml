@@ -1,148 +1,76 @@
-- id: '1621870140126'
-  alias: Slaapkamer - Rolgordijn
+- id: '1630828352706'
+  alias: Schakelaar - Woonkamer
+  description: ''
+  use_blueprint:
+    path: zha-ikea-tradfri-on-off.yaml
+    input:
+      remote: 174a5a7dde34839097574d90cae3b302
+      button_on_short:
+      - service: light.toggle
+        target:
+          device_id:
+          - 3bb074ed31de730c605b417b20f23550
+          - 46beae0f6a9e1d762da8bb079bf66eb9
+      button_off_short:
+      - type: toggle
+        device_id: 4a825f490e0da8b7bab8474581891dd3
+        entity_id: switch.kast
+        domain: switch
+      button_on_long:
+      - device_id: 9e495e0b463a8a665dcb917e62658217
+        domain: cover
+        entity_id: cover.rolluik_achter
+        type: set_position
+      button_off_long:
+      - device_id: 9e495e0b463a8a665dcb917e62658217
+        domain: cover
+        entity_id: cover.rolluik_achter
+        type: set_position
+        position: 100
+- id: '1630828597105'
+  alias: Schakelaar - Overloop
+  description: ''
+  use_blueprint:
+    path: zha-ikea-tradfri-on-off.yaml
+    input:
+      remote: 6d28d5667edb2b868eff70fd11bd482a
+      button_on_short:
+      - service: light.toggle
+        data:
+          effect: Colortwinkles
+          brightness_pct: 50
+        target:
+          entity_id: light.sk_elyza
+      button_off_short:
+      - type: toggle
+        device_id: 02cacf930f07812e59e570f82c5ca227
+        entity_id: light.slaapkamer
+        domain: light
+      button_on_long:
+      - type: toggle
+        device_id: 5ef0c84be1879822e4d1f39924f41cd7
+        entity_id: light.wled_elyza
+        domain: light
+      button_off_long:
+      - service: light.toggle
+        target:
+          entity_id: light.zolder
+- id: '1630829375213'
+  alias: Schakelaar - Rolgordijn
   description: ''
   use_blueprint:
     path: r3mcos3/ikea_open_close_remote.yaml
     input:
-      remote: 62ae3da6fa634114d856602beee52cab
+      remote: cc66f011e492b866cfffda5d7ff4856d
       cover: cover.rolgordijn
-- id: '1621870559286'
-  alias: Overloop - Licht Schakelaar
-  description: ''
-  use_blueprint:
-    path: zha-ikea-tradfri-on-off.yaml
-    input:
-      remote: 30e64186ad8605defd300d8a8295a905
-      button_on_short:
-      - type: toggle
-        device_id: 913b43c0baf6b55f6ed0038cefb2784b
-        entity_id: light.slaapkamer_elyza
-        domain: light
-      button_off_short:
-      - type: toggle
-        device_id: a62de39a3686fbaf1770376bbdc81889
-        entity_id: light.slaapkamer
-        domain: light
-      button_on_long:
-      - service: light.toggle
-        target:
-          device_id: 5ef0c84be1879822e4d1f39924f41cd7
-        data:
-          brightness_pct: 50
-          effect: Colortwinkles
-      button_off_long:
-      - type: toggle
-        device_id: 03cb01bfd0973815f9c4d1de0e3fb013
-        entity_id: light.zolder_1
-        domain: light
-      - type: toggle
-        device_id: e383f7708e969ab7010e5c6e1407f368
-        entity_id: light.zolder_2
-        domain: light
-- id: '1621870719676'
-  alias: Woonkamer - Schakelaar
-  description: ''
-  use_blueprint:
-    path: zha-ikea-tradfri-on-off.yaml
-    input:
-      remote: 332b7015c8439d2d066930430a64e0bf
-      button_off_short:
-      - type: toggle
-        device_id: e8acf5c57a51493f7a98b8eb33e8e2c1
-        entity_id: switch.kast
-        domain: switch
-      button_on_short:
-      - type: toggle
-        device_id: 9e7405337405aab074bfc3bba901d246
-        entity_id: light.woonkamer_spot_1
-        domain: light
-      - type: toggle
-        device_id: b9dc5a08ca6b275d1daeeaf61ac6bcb7
-        entity_id: light.woonkamer_spot_2
-        domain: light
-      button_off_long:
-      - service: cover.toggle
-        target:
-          device_id: 9e495e0b463a8a665dcb917e62658217
-- id: '1622010105337'
-  alias: Slaapkamer Santi - Ledstrip + Rolluik
-  description: ''
-  trigger:
-  - platform: device
-    domain: tasmota
-    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
-    type: button_long_press
-    subtype: button_1
-    discovery_id: 2CF432C02815_button_1_HOLD
-  condition: []
-  action:
-  - choose:
-    - conditions:
-      - condition: device
-        type: is_off
-        device_id: 6eeca783b2d9cfbbe21886b0993260eb
-        entity_id: light.wled_santi
-        domain: light
-      sequence:
-      - service: light.turn_on
-        target:
-          device_id: 6eeca783b2d9cfbbe21886b0993260eb
-        data:
-          brightness_pct: 50
-          effect: Colortwinkles
-    - conditions:
-      - condition: device
-        type: is_on
-        device_id: 6eeca783b2d9cfbbe21886b0993260eb
-        entity_id: light.wled_santi
-        domain: light
-      - condition: device
-        type: is_off
-        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-        entity_id: switch.ventilator_santi
-        domain: switch
-      sequence:
-      - type: turn_on
-        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-        entity_id: switch.ventilator_santi
-        domain: switch
-    - conditions:
-      - condition: device
-        type: is_on
-        device_id: 6eeca783b2d9cfbbe21886b0993260eb
-        entity_id: light.wled_santi
-        domain: light
-      - condition: device
-        type: is_on
-        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-        entity_id: switch.ventilator_santi
-        domain: switch
-      sequence:
-      - type: turn_off
-        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-        entity_id: switch.ventilator_santi
-        domain: switch
-    - conditions:
-      - condition: device
-        device_id: 6e9ba0e145793df25490992ba89ce0e7
-        domain: cover
-        entity_id: cover.rolluik_boven
-        type: is_open
-      sequence:
-      - type: turn_off
-        device_id: 6eeca783b2d9cfbbe21886b0993260eb
-        entity_id: light.wled_santi
-        domain: light
-    default: []
-  mode: single
-- id: '1622055146715'
-  alias: WC Licht
+- id: '1630829568152'
+  alias: Licht - WC
   description: ''
   trigger:
   - type: motion
     platform: device
-    device_id: 7bdfa0f70879640745a3d5f07bad42ff
-    entity_id: binary_sensor.wc_motion_occupancy
+    device_id: c68f9d21be09a8a9d631b4025f334626
+    entity_id: binary_sensor.wc_motion
     domain: binary_sensor
   condition: []
   action:
@@ -153,32 +81,47 @@
   - wait_for_trigger:
     - type: no_motion
       platform: device
-      device_id: 7bdfa0f70879640745a3d5f07bad42ff
-      entity_id: binary_sensor.wc_motion_occupancy
+      device_id: c68f9d21be09a8a9d631b4025f334626
+      entity_id: binary_sensor.wc_motion
       domain: binary_sensor
-      for:
-        hours: 0
-        minutes: 5
-        seconds: 0
-        milliseconds: 0
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
   - type: turn_off
     device_id: 53087e3390780a0440609dd187364e13
     entity_id: switch.wc_licht
     domain: switch
   mode: restart
-- id: '1622220458366'
-  alias: Heating Control
+- id: '1630829664497'
+  alias: Licht - Kelder
   description: ''
-  use_blueprint:
-    path: r3mcos3/heating.yaml
-    input:
-      time_after: '7:30:00'
-      heating: climate.woonkamer
-      temp_sensor: sensor.multi_sensor_beneden_temperature
-      person1: person.dev
-      person2: person.annemarie
-      min_temp: 17
-- id: '1622221737764'
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 998ef6ac47b2081cefd9d2cff191775c
+    entity_id: binary_sensor.kelder_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 583255008fa6e3c33abaffc0d5da340e
+    entity_id: light.kelder
+    domain: light
+    brightness_pct: 100
+  - wait_for_trigger:
+    - type: no_motion
+      platform: device
+      device_id: 998ef6ac47b2081cefd9d2cff191775c
+      entity_id: binary_sensor.kelder_motion
+      domain: binary_sensor
+  - type: turn_off
+    device_id: 583255008fa6e3c33abaffc0d5da340e
+    entity_id: light.kelder
+    domain: light
+  mode: restart
+- id: '1630829755710'
   alias: Volume Control
   description: ''
   use_blueprint:
@@ -186,239 +129,76 @@
     input:
       media:
         device_id:
-        - fd25f3b4bdb670d909c81cda743a8a1d
         - d64b69ecb57f7ae66498fb29641b6ebb
-        - 80b17e38171741676fb6ed112a0210dc
         - e2243ddf2291037173a4f27bcbebcbed
+        - 80b17e38171741676fb6ed112a0210dc
         - a65c880d276523becfe34f1f44b8b000
+        - fd25f3b4bdb670d909c81cda743a8a1d
       time_up: 08:30:00
-      time_down: '20:30:00'
-- id: '1622222193390'
-  alias: Prullenbak Licht
+      time_down: '20:00:00'
+- id: '1630829880953'
+  alias: Licht - Prullebak
   description: ''
   trigger:
   - type: opened
     platform: device
-    device_id: 34b72573a8e8cc83a8bc423dfd47d071
-    entity_id: binary_sensor.keuken_deur_contact
+    device_id: 6a2d4d761d32c8de40c687e01ecbde50
+    entity_id: binary_sensor.achterdeur
     domain: binary_sensor
   condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+  - condition: sun
+    before: sunrise
+    after: sunset
   action:
   - service: light.turn_on
-    data:
-      brightness_pct: 100
     target:
       device_id:
-      - 433fb2fd90da24c1dcb5d5be61288d92
-      - 3a910e816c307b41d56fa992ed6c7b20
+      - 7682b2c0cd0b824545f3ae8011a7ee71
+      - fa730a519480da09b832e94d3c8d4123
   - delay:
       hours: 0
-      minutes: 2
-      seconds: 0
+      minutes: 1
+      seconds: 30
       milliseconds: 0
   - service: light.turn_off
     target:
       device_id:
-      - 433fb2fd90da24c1dcb5d5be61288d92
-      - 3a910e816c307b41d56fa992ed6c7b20
+      - 7682b2c0cd0b824545f3ae8011a7ee71
+      - fa730a519480da09b832e94d3c8d4123
   mode: restart
-- id: '1622223089526'
-  alias: Tuin & Schuur Licht
+- id: '1630829982331'
+  alias: Licht - Schuur
   description: ''
   trigger:
-  - platform: device
-    domain: tasmota
-    device_id: a2e725aed04f97b7eb8f3eadacd09782
-    type: button_long_press
-    subtype: button_1
-    discovery_id: D8F15BE77D0A_button_1_HOLD
-  condition: []
-  action:
-  - service: light.toggle
-    data:
-      brightness_pct: 100
-    target:
-      entity_id:
-      - light.tuin_led
-      - light.groot_licht_2
-  mode: single
-- id: '1622279238906'
-  alias: Ochtend Licht
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.next_alarm
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-  - type: turn_on
-    device_id: 006f006715e635f79f29257a68b54bf9
-    entity_id: switch.kast_licht
-    domain: switch
-  - type: turn_on
-    device_id: a2e725aed04f97b7eb8f3eadacd09782
-    entity_id: switch.keuken_schakelaar
-    domain: switch
-  mode: single
-- id: '1622290679194'
-  alias: Licht Thuis Komen
-  description: ''
-  trigger:
-  - type: opened
+  - type: motion
     platform: device
-    device_id: 0d7084423166482c49435d9b5e3e88f9
-    entity_id: binary_sensor.voor_deur_contact
+    device_id: dc78b6723f3afd48e7f99ad45ff3b3d2
+    entity_id: binary_sensor.schuur_motion_98d7b1fe_on_off
     domain: binary_sensor
   condition:
   - condition: state
     entity_id: sun.sun
     state: below_horizon
-  - condition: state
-    state: 'off'
-    entity_id: switch.kast_licht
   action:
-  - type: turn_on
-    device_id: 006f006715e635f79f29257a68b54bf9
-    entity_id: switch.kast_licht
-    domain: switch
   - service: light.turn_on
     target:
-      entity_id: light.woonkamer_spotjes
-  - type: turn_on
-    device_id: a2e725aed04f97b7eb8f3eadacd09782
-    entity_id: switch.keuken_schakelaar
-    domain: switch
-  - type: turn_on
-    device_id: 8b3050929b1c936bd357237e597c5b20
-    entity_id: light.gang_licht
-    domain: light
+      device_id:
+      - b846ef2bb4701180bacd419e1c49c985
+      - df2e78bfb18d16f92f23a487b31518a9
+      - 681c2133fc1dcec1c7bc8ab0b823a9df
   - delay:
       hours: 0
-      minutes: 5
+      minutes: 3
       seconds: 0
       milliseconds: 0
-  - type: turn_off
-    device_id: 8b3050929b1c936bd357237e597c5b20
-    entity_id: light.gang_licht
-    domain: light
-  mode: single
-- id: '1622291702366'
-  alias: Rolluik Bediening Boven
-  description: ''
-  trigger:
-  - platform: device
-    domain: tasmota
-    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
-    type: button_double_press
-    subtype: button_1
-    discovery_id: 2CF432C02815_button_1_DOUBLE
-  condition: []
-  action:
-  - choose:
-    - conditions:
-      - condition: device
-        device_id: 6e9ba0e145793df25490992ba89ce0e7
-        domain: cover
-        entity_id: cover.rolluik_boven
-        type: is_open
-      sequence:
-      - service: cover.close_cover
-        target:
-          device_id: 6e9ba0e145793df25490992ba89ce0e7
-    - conditions:
-      - condition: device
-        device_id: 6e9ba0e145793df25490992ba89ce0e7
-        domain: cover
-        entity_id: cover.rolluik_boven
-        type: is_closed
-      sequence:
-      - service: cover.open_cover
-        target:
-          device_id: 6e9ba0e145793df25490992ba89ce0e7
-    default: []
-  mode: single
-- id: '1622368464981'
-  alias: Niemand Thuis Lichten Uit
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: input_boolean.huis_status
-    to: 'off'
-  condition:
-  - condition: state
-    entity_id: light.alle_lichten
-    state: 'on'
-  action:
   - service: light.turn_off
-    entity_id: all
-  - service: notify.mobile_app_in2023
-    data:
-      message: Niemand thuis, Alle lichten uitgezet
-  mode: single
-- id: '1622391163363'
-  alias: Update Beschikbaar
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.update_available
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.mobile_app_in2023
-    data:
-      title: 'HA Update Beschikbaar '
-      message: Nieuwe versie is {{ states('sensor.newest_dev_version') }}. momenteel
-        zit je op {{ states('sensor.installed_version') }}
-  mode: single
-- id: '1622395399835'
-  alias: Santi Nachtlampje + ventilatie 30min
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 6eeca783b2d9cfbbe21886b0993260eb
-    entity_id: light.wled_santi
-    domain: light
-    id: nightlight_on
-  - platform: device
-    type: turned_on
-    device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-    entity_id: switch.ventilator_santi
-    domain: switch
-    id: vent_on
-  condition: []
-  action:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id: nightlight_on
-      sequence:
-      - service: switch.turn_on
-        target:
-          entity_id: switch.wled_santi_nightlight
-    - conditions:
-      - condition: trigger
-        id: vent_on
-      sequence:
-      - delay:
-          hours: 0
-          minutes: 30
-          seconds: 0
-          milliseconds: 0
-      - type: turn_off
-        device_id: 13e1b2fdd2494008acfd4fa89e09fc2a
-        entity_id: switch.ventilator_santi
-        domain: switch
-    default: []
-  mode: parallel
-  max: 10
-- id: '1622440530480'
+    target:
+      device_id:
+      - b846ef2bb4701180bacd419e1c49c985
+      - df2e78bfb18d16f92f23a487b31518a9
+      - 681c2133fc1dcec1c7bc8ab0b823a9df
+  mode: restart
+- id: '1630830182142'
   alias: Huis Status - Bewoond
   description: ''
   trigger:
@@ -437,18 +217,21 @@
     target:
       entity_id: input_boolean.huis_status
   mode: single
-- id: '1622486649718'
+- id: '1630830408962'
   alias: Huis Status - Onbewoond
   description: ''
   trigger:
   - platform: zone
-    entity_id: person.dev
-    zone: zone.home
-    event: leave
-  - platform: zone
     entity_id: person.annemarie
     zone: zone.home
     event: leave
+  - platform: zone
+    entity_id: person.dev
+    zone: zone.home
+    event: leave
+  - platform: state
+    entity_id: input_boolean.gasten_status
+    to: 'off'
   condition:
   - condition: state
     entity_id: person.annemarie
@@ -464,178 +247,163 @@
     target:
       entity_id: input_boolean.huis_status
   mode: single
-- id: '1624737573905'
-  alias: Schuur Licht
-  description: ''
-  trigger:
-  - type: motion
-    platform: device
-    device_id: c2e45b8bfe53c801d132a3e7dc3290de
-    entity_id: binary_sensor.schuur_motion_occupancy
-    domain: binary_sensor
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-  - service: light.turn_on
-    target:
-      entity_id: light.schuur
-  - wait_for_trigger:
-    - type: no_motion
-      platform: device
-      device_id: c2e45b8bfe53c801d132a3e7dc3290de
-      entity_id: binary_sensor.schuur_motion_occupancy
-      domain: binary_sensor
-  - service: light.turn_off
-    target:
-      entity_id: light.schuur
-  mode: restart
-- id: '1625302140145'
-  alias: Schakelaar Beneden
-  description: ''
-  use_blueprint:
-    path: r3mcos3/zsm_2button_remote_ikea.yaml
-    input:
-      remote: sensor.schakelaar_beneden_action
-      on_button_short:
-      - type: toggle
-        device_id: 006f006715e635f79f29257a68b54bf9
-        entity_id: switch.kast_licht
-        domain: switch
-      off_button_short:
-      - service: light.toggle
-        target:
-          entity_id: light.woonkamer_spotjes
-      on_button_long:
-      - service: cover.close_cover
-        target:
-          device_id: 9e495e0b463a8a665dcb917e62658217
-      off_button_long:
-      - service: cover.open_cover
-        target:
-          device_id: 9e495e0b463a8a665dcb917e62658217
-- id: '1625302376620'
-  alias: Schakelaar Boven
-  description: ''
-  use_blueprint:
-    path: r3mcos3/zsm_2button_remote_ikea.yaml
-    input:
-      remote: sensor.schakelaar_boven_action
-      on_button_short:
-      - type: toggle
-        device_id: 0cc147f5e3e282389ff23b63a7d59e5b
-        entity_id: light.sk_elyza_licht
-        domain: light
-      off_button_short:
-      - type: toggle
-        device_id: 4c3d1ca7977a64b778faf930bf941e70
-        entity_id: light.slaapkamer
-        domain: light
-      on_button_long:
-      - type: toggle
-        device_id: 5ef0c84be1879822e4d1f39924f41cd7
-        entity_id: light.wled_elyza
-        domain: light
-      off_button_long:
-      - service: light.toggle
-        target:
-          entity_id: light.zolder
-- id: '1625302721755'
-  alias: Schakelaar Rolgordijn
-  description: ''
-  use_blueprint:
-    path: r3mcos3/zsm_ikea_fyrtur_remote.yaml
-    input:
-      remote: sensor.schakelaar_rolgordijn_action
-      cover:
-        device_id: 321cff10199118bb28c109d29e7cd247
-- id: '1625302846954'
-  alias: Rolgordijn Open
+- id: '1630830595725'
+  alias: Schakelaar - Keuken
   description: ''
   trigger:
   - platform: device
-    domain: mqtt
-    device_id: 7be280280edfe81e3513e3cf4f12339c
-    type: action
-    subtype: open
-    discovery_id: 0x086bd7fffe5db149 action_open
-  condition: []
-  action:
-  - service: cover.open_cover
-    target:
-      device_id: 321cff10199118bb28c109d29e7cd247
-  mode: single
-- id: '1625303051473'
-  alias: Rolgordijn Dicht
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: 7be280280edfe81e3513e3cf4f12339c
-    type: action
-    subtype: close
-    discovery_id: 0x086bd7fffe5db149 action_close
-  condition: []
-  action:
-  - service: cover.close_cover
-    target:
-      device_id: 321cff10199118bb28c109d29e7cd247
-  mode: single
-- id: '1625303263609'
-  alias: Kelder Licht
-  description: ''
-  trigger:
-  - type: motion
-    platform: device
-    device_id: 8dd3c8dc7346fad90d1dfa2151ec2695
-    entity_id: binary_sensor.kelder_motion_occupancy
-    domain: binary_sensor
-  condition: []
-  action:
-  - type: turn_on
-    device_id: aa0e0984fafd30196f6a3d1b56ea7aad
-    entity_id: light.kelder_licht
-    domain: light
-  - wait_for_trigger:
-    - type: no_motion
-      platform: device
-      device_id: 8dd3c8dc7346fad90d1dfa2151ec2695
-      entity_id: binary_sensor.kelder_motion_occupancy
-      domain: binary_sensor
-  - type: turn_off
-    device_id: aa0e0984fafd30196f6a3d1b56ea7aad
-    entity_id: light.kelder_licht
-    domain: light
-  mode: restart
-- id: '1628421634940'
-  alias: Zonnig? sluit rolluik boven
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.licht_sensor_illuminance_lux
-    above: '6000'
-  condition: []
-  action:
-  - device_id: 6e9ba0e145793df25490992ba89ce0e7
-    domain: cover
-    entity_id: cover.rolluik_boven
-    type: set_position
-  mode: single
-- id: '1629538423418'
-  alias: 'Keuken Licht '
-  description: ''
-  trigger:
+    domain: tasmota
+    device_id: a2e725aed04f97b7eb8f3eadacd09782
+    type: button_long_press
+    subtype: button_1
+    discovery_id: D8F15BE77D0A_button_1_HOLD
+    id: long
   - platform: device
     domain: tasmota
     device_id: a2e725aed04f97b7eb8f3eadacd09782
     type: button_double_press
     subtype: button_1
     discovery_id: D8F15BE77D0A_button_1_DOUBLE
+    id: double
   condition: []
   action:
-  - type: toggle
-    device_id: 02a33f7c6948a7a98e138593455d2ec1
-    entity_id: light.keuken_licht
-    domain: light
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: long
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id:
+          - light.tuin_led
+          - light.groot_licht
+    - conditions:
+      - condition: trigger
+        id: double
+      sequence:
+      - service: light.toggle
+        target:
+          entity_id: light.patio
+        data:
+          brightness_pct: 50
+    default: []
+  mode: single
+- id: '1630831176049'
+  alias: Systeem - Update Beschikbaar
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.update_available
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_in2023
+    data:
+      title: 'HA Update Beschikbaar '
+      message: Nieuwe versie is {{ states('sensor.newest_dev_version') }}. momenteel
+        zit je op {{ states('sensor.installed_version') }}
+  mode: single
+- id: '1630831551618'
+  alias: Schakelaar - Santi
+  description: ''
+  trigger:
+  - platform: device
+    domain: tasmota
+    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
+    type: button_long_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_HOLD
+    id: hold
+  - platform: device
+    domain: tasmota
+    device_id: 8740fcd2b902c3c8fe7ab26e995ed5d9
+    type: button_double_press
+    subtype: button_1
+    discovery_id: 2CF432C02815_button_1_DOUBLE
+    id: double
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: hold
+      sequence:
+      - type: toggle
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: light.wled_santi
+        domain: light
+      - type: toggle
+        device_id: 6eeca783b2d9cfbbe21886b0993260eb
+        entity_id: switch.wled_santi_nightlight
+        domain: switch
+    - conditions:
+      - condition: trigger
+        id: double
+      sequence:
+      - service: cover.toggle
+        target:
+          device_id: 6e9ba0e145793df25490992ba89ce0e7
+    default: []
+  mode: single
+- id: '1630836252141'
+  alias: Licht - Thuis Komen
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 4638c662bc11fa913f1250cdae4aa3a3
+    entity_id: binary_sensor.voordeur
+    domain: binary_sensor
+  condition:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  - condition: state
+    entity_id: light.kast
+    state: 'off'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.kast
+      - light.gang
+      - light.keuken_spotjes
+      - light.woonkamer_spotjes
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    target:
+      entity_id: light.gang
+  mode: single
+- id: '1630837076353'
+  alias: Alarm - Aan
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.huis_status
+    to: 'off'
+  condition: []
+  action:
+  - service: alarmo.arm
+    data:
+      entity_id: alarm_control_panel.alarmo
+      code: '2012'
+  mode: single
+- id: '1630865815987'
+  alias: Licht - Wekker Licht
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.next_alarm
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.kast
+      - light.keuken_spotjes
   mode: single

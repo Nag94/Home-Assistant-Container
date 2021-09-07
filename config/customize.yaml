@@ -41,3 +41,28 @@ sensor.dagelijks_verbruik_dal:
   state_class: total_increasing
 sensor.dagelijks_verbruik_normaal:
   state_class: total_increasing
+binary_sensor.badkamer_raam_contact:
+  device_class: window
+binary_sensor.sk_elyza_raam_contact:
+  device_class: window
+binary_sensor.sk_santi_raam_contact:
+  device_class: window
+binary_sensor.slaapkamer_raam_contact:
+  device_class: window
+sensor.koelkast_dagelijks:
+  state_class: total_increasing
+  unit_of_measurement: kWh
+sensor.tz3000_g5xawfcq_ts0121_2730fffe_smartenergy_metering:
+  state_class: total_increasing
+binary_sensor.badkamer_raam:
+  device_class: window
+binary_sensor.sk_raam_elyza:
+  device_class: window
+binary_sensor.sk_raam_santi:
+  device_class: window
+binary_sensor.sk_raam:
+  device_class: window
+binary_sensor.voordeur:
+  device_class: door
+binary_sensor.achterdeur:
+  device_class: door
