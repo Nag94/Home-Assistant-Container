@@ -10,8 +10,8 @@ light:
   - platform: group
     name: Woonkamer Spotjes
     entities:
-      - light.woonkamer_spotjes_1
-      - light.woonkamer_spotjes_2
+      - light.woonkamer_spot_1
+      - light.woonkamer_spot_2
   - platform: group
     name: Tuin Led
     entities:
@@ -23,12 +23,12 @@ light:
     name: Patio
     unique_id: 1111
     entities:
-      - light.patio_led_1
-      - light.patio_led_2
-      - light.patio_led_3
-      - light.patio_led_4
-      - light.patio_led_5
-      - light.patio_led_6
+      - light.patio_spot_1
+      - light.patio_spot_2
+      - light.patio_spot_3
+      - light.patio_spot_4
+      - light.patio_spot_5
+      - light.patio_spot_6
   - platform: group
     name: Zolder
     entities:
@@ -52,7 +52,7 @@ light:
       - light.schuur
       - light.patio
       - light.slaapkamer
-      - light.slaapkamer_elyza
+      - light.sk_elyza
       - light.kast
       - light.spotjes_santi
       - light.wc_licht
@@ -73,9 +73,3 @@ light:
   - platform: switch
     name: Spotjes Santi
     entity_id: switch.schakelaar_santi
-  - platform: switch
-    name: Woonkamer Spotjes 1
-    entity_id: switch.woonkamer_spotjes_1
-  - platform: switch
-    name: Woonkamer Spotjes 2
-    entity_id: switch.woonkamer_spotjes_2
