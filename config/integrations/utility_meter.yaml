@@ -24,3 +24,12 @@ utility_meter:
   maandelijks_verbruik_normaal:
     source: sensor.energy_consumption_tarif_2
     cycle: monthly
+  koelkast_dagelijks:
+    source: sensor.koelkast_watt
+    cycle: daily
+  vaatwasser_dagelijks:
+    source: sensor.vaatwasser_watt
+    cycle: daily
+  media_hoek_dagelijks:
+    source: sensor.media_hoek_watt
+    cycle: daily
