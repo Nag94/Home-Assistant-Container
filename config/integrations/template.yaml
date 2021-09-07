@@ -7,3 +7,23 @@ template:
         device_class: energy
         state_class: measurement
         unique_id: 2222
+      - name: Koelkast kWh
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.koelkast_dagelijks') | float / 1000 }}"
+        device_class: energy
+        state_class: total_increasing
+      - name: Vaatwasser kWh
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.vaatwasser_dagelijks') | float / 1000 }}"
+        device_class: energy
+        state_class: total_increasing
+      - name: Oven kWh
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.oven_dagelijks') | float / 1000 }}"
+        device_class: energy
+        state_class: total_increasing
+      - name: Media Hoek kWh
+        unit_of_measurement: "kWh"
+        state: "{{ states('sensor.media_hoek_dagelijks') | float / 1000 }}"
+        device_class: energy
+        state_class: total_increasing
